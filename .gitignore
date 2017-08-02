@@ -102,3 +102,6 @@ ENV/
 
 #service.py
 services.py
+
+#.idea
+.idea/
