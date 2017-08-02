@@ -1,5 +1,7 @@
 import datetime
 import bson
+import json
+from mongoengine.base.datastructures import BaseList
 from mongoengine import *
 
 
@@ -30,14 +32,14 @@ class Waypoint(DynamicDocument):
 
     @property
     def waypoint_to_dict(self):
+        print(type(self))
         data = {}
         for i in self:
-            print(i,type(i))
             if isinstance(self[i], datetime.datetime):
                 data.update({i: self[i].strftime('%Y-%m-%d')})
             elif isinstance(self[i], bson.objectid.ObjectId):
                 data.update({i: str(self[i])})
-            elif i=='comment':
+            elif isinstance(self[i],BaseList):
                 continue
             else:
                 data.update({i: self[i]})
