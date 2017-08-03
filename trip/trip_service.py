@@ -8,7 +8,7 @@ class Trip_Service:
         pass
 
     @classmethod
-    def get_trip_list(cls,model):
+    def get_trip_list(cls):
         arr=[]
         offset=0,
         num=5

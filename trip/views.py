@@ -8,7 +8,7 @@ leyouv_trips = Blueprint("leyouv_trips", __name__)
 @leyouv_trips.route('/trip/index',methods=['GET'])
 @api_wrap
 def get_trip_list():
-    data=Trip_Service.get_trip_list({})
+    data=Trip_Service.get_trip_list()
     return APIResult(0,data)
 
 @leyouv_trips.route('/waypoint',methods=['GET'])
