@@ -29,15 +29,12 @@ class Trip(DynamicDocument):
     def trip_to_dict(self):
         data={}
         for i in self:
-            if isinstance(self[i],ObjectIdField):
-                data.udpate({i,str(self[i])})
-            elif isinstance(self[i],User):
+            if isinstance(self[i],User):
                 user={
                     "id":str(self[i].id),
                     "name":(self[i].name),
                     "avatar_1":self[i].avatar_1
                 }
-                print(type(self[i].name))
                 data['user']=user
             elif isinstance(self[i],datetime.datetime):
                 data.update({i:self[i].strftime('%Y-%m-%d')})
