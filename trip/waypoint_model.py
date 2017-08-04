@@ -39,16 +39,16 @@ class Waypoint(DynamicDocument):
         data = {}
         for i in self:
             if isinstance(self[i], datetime.datetime):
-                data.update({i: self[i].strftime('%Y-%m-%d')})
+                data.update({i: self[i].strftime('%Y-%m-%d %H:%M:%S')})
             elif isinstance(self[i], bson.objectid.ObjectId):
                 data.update({i: str(self[i])})
             elif isinstance(self[i],BaseList):
-                print(i,self[i])
                 comments=[]
                 for j in self[i]:
                     comments.append(self._for_model_key(j))
-                print(comments)
                 data.update({i:comments})
+            elif isinstance(self[i],str):
+                data.update({i:str(self[i])})
             else:
                 data.update({i: self[i]})
         return data
@@ -63,11 +63,13 @@ class Waypoint(DynamicDocument):
                 data.update({i: str(model[i])})
             elif isinstance(model[i],User):
                 user = {
-                    "id": str(self[i].id),
-                    "name": (self[i].name),
-                    "avatar_1": self[i].avatar_1
+                    "id": str(model[i].id),
+                    "name": (model[i].name),
+                    "avatar_1": model[i].avatar_1
                 }
                 data['user'] = user
+            elif isinstance(model[i], str):
+                data.update({i: str(model[i])})
             else:
                 data.update({i: model[i]})
         return  data
