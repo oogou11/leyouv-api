@@ -8,7 +8,7 @@ from trip.views import leyouv_trips
 app = flask.Flask('api')
 
 #trip
-prefix = "/api/v1"
+prefix = "/v1"
 app.register_blueprint(leyouv_trips,url_prefix=prefix)
 
 
