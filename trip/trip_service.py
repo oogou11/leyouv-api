@@ -13,7 +13,6 @@ class Trip_Service:
         offset=0,
         num=5
         data=Trip.objects.order_by('-id').skip(0).limit(5)
-        print(data.count())
         for i in data:
             arr.append(i.trip_to_dict)
         return arr
