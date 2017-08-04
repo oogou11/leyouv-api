@@ -19,6 +19,12 @@ class Trip_Service:
         return result
 
     @classmethod
+    def get_trip_by_id(cls,id):
+        data=Trip.objects(id=id).first()
+        result=data.trip_to_dict
+        return  result
+
+    @classmethod
     def get_waypoint_list(cls):
         arr=[]
         data=Waypoint.objects[0:1]
