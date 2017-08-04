@@ -3,13 +3,13 @@ import bson
 import json
 from mongoengine.base.datastructures import BaseList
 from mongoengine import *
+from user.user_model import User
 
 
 DB_NAME = "leyouv"
 
 class CommentUser(EmbeddedDocument):
-    name=StringField()
-    avatar_1=StringField()
+    user = ReferenceField(User)
 
 class Commnets(EmbeddedDocument):
     user=EmbeddedDocumentField(CommentUser)
@@ -57,12 +57,17 @@ class Waypoint(DynamicDocument):
     def _for_model_key(self,model):
         data={}
         for i in model:
-            if isinstance(model[i],ObjectIdField):
-                data.update({i,str(model[i])})
             if isinstance(model[i], datetime.datetime):
                 data.update({i: model[i].strftime('%Y-%m-%d')})
             elif isinstance(model[i], bson.objectid.ObjectId):
                 data.update({i: str(model[i])})
+            elif isinstance(model[i],User):
+                user = {
+                    "id": str(self[i].id),
+                    "name": (self[i].name),
+                    "avatar_1": self[i].avatar_1
+                }
+                data['user'] = user
             else:
                 data.update({i: model[i]})
         return  data
