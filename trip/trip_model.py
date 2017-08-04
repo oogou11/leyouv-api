@@ -34,14 +34,16 @@ class Trip(DynamicDocument):
             elif isinstance(self[i],User):
                 user={
                     "id":str(self[i].id),
-                    "name":self[i].name,
+                    "name":(self[i].name),
                     "avatar_1":self[i].avatar_1
                 }
-                print(user)
+                print(type(self[i].name))
                 data['user']=user
             elif isinstance(self[i],datetime.datetime):
                 data.update({i:self[i].strftime('%Y-%m-%d')})
             elif isinstance(self[i],bson.objectid.ObjectId):
+                data.update({i:str(self[i])})
+            elif isinstance(self[i],str):
                 data.update({i:str(self[i])})
             else:
                 data.update({i: self[i]})
