@@ -15,7 +15,8 @@ class Trip_Service:
         data=Trip.objects.order_by('-id').skip(0).limit(5)
         for i in data:
             arr.append(i.trip_to_dict)
-        return arr
+        result={"data":arr}
+        return result
 
     @classmethod
     def get_waypoint_list(cls):
