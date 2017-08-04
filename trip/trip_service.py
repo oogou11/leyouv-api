@@ -1,5 +1,6 @@
 import  json
 from .trip_model import Trip
+from .day_model import Days
 from .waypoint_model import Waypoint
 
 class Trip_Service:
@@ -25,9 +26,28 @@ class Trip_Service:
         return  result
 
     @classmethod
+    def get_days_by_tripsid(cls,tripsid):
+        arr=[]
+        days_info=Days.objects(trip=tripsid)
+        for i in days_info:
+            print(i.id)
+            day={}
+            waypoints=cls._get_waypoits_by_days_id(i.id)
+            day.update({"day":i.day,"date":i.date_add,"waypoints":waypoints})
+            arr.append(day)
+        return arr
+
+    @classmethod
     def get_waypoint_list(cls):
         arr=[]
         data=Waypoint.objects[0:1]
         for i in data:
             arr.append(i.waypoint_to_dict)
         return  arr
+
+    def _get_waypoits_by_days_id(self,daysid):
+        result=[]
+        waypoints=Waypoint.objects(day=daysid).order_by('id')
+        for i in waypoints:
+            result.append(i.waypoint_to_dict)
+        return  result

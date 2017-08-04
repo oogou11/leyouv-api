@@ -33,7 +33,7 @@ def get_waypoint_list(tripid):
     try:
         #get trips
         trip = Trip_Service.get_trip_by_id(tripid)
-        days=Trip_Service.get_waypoint_list()
+        days=Trip_Service.get_days_by_tripsid(tripid)
         data={"trip":trip,"days":days}
         return APIResult(0,data)
     except Exception as ex:

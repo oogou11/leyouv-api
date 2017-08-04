@@ -1,7 +1,6 @@
 import  datetime
 import bson
 from mongoengine import *
-from .waypoint_model import Waypoint
 from user.user_model import User
 
 DB_NAME = "leyouv"

@@ -4,6 +4,7 @@ import json
 from mongoengine.base.datastructures import BaseList
 from mongoengine import *
 from user.user_model import User
+from .day_model import Days
 
 
 DB_NAME = "leyouv"
@@ -22,8 +23,6 @@ class Waypoint(DynamicDocument):
         'db_alias': DB_NAME,
         'collection': 'waypoint'
     }
-    trip_id=ObjectIdField()
-    day=IntField()
     local_time=DateTimeField()
     customer_id = IntField
     photo = StringField()
@@ -33,6 +32,7 @@ class Waypoint(DynamicDocument):
     comment_count = IntField()
     recommender_count = IntField()
     comment = ListField(EmbeddedDocumentField(Commnets))
+    days = ReferenceField(Days)
 
     @property
     def waypoint_to_dict(self):
@@ -49,6 +49,8 @@ class Waypoint(DynamicDocument):
                 data.update({i:comments})
             elif isinstance(self[i],str):
                 data.update({i:str(self[i])})
+            elif isinstance(self[i],Day):
+                data['day']=self[i].day
             else:
                 data.update({i: self[i]})
         return data
