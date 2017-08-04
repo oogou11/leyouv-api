@@ -7,8 +7,12 @@ from mongoengine import *
 
 DB_NAME = "leyouv"
 
+class CommentUser(EmbeddedDocument):
+    name=StringField()
+    avatar_1=StringField()
+
 class Commnets(EmbeddedDocument):
-    user_id=ObjectIdField()
+    user=EmbeddedDocumentField(CommentUser)
     comment=StringField()
     date_added=DateTimeField()
 
@@ -39,20 +43,22 @@ class Waypoint(DynamicDocument):
             elif isinstance(self[i], bson.objectid.ObjectId):
                 data.update({i: str(self[i])})
             elif isinstance(self[i],BaseList):
+                print(i,self[i])
                 comments=[]
-                for i in self[i]:
-                    comments.append(self._for_model_key(i))
+                for j in self[i]:
+                    comments.append(self._for_model_key(j))
                 print(comments)
-                data.update({"comments":comments})
+                data.update({i:comments})
             else:
                 data.update({i: self[i]})
         return data
 
 
     def _for_model_key(self,model):
-
         data={}
         for i in model:
+            if isinstance(model[i],ObjectIdField):
+                data.update({i,str(model[i])})
             if isinstance(model[i], datetime.datetime):
                 data.update({i: model[i].strftime('%Y-%m-%d')})
             elif isinstance(model[i], bson.objectid.ObjectId):
