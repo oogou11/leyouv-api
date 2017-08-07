@@ -7,7 +7,7 @@ import logging
 leyouv_trips = Blueprint("leyouv_trips", __name__)
 logger = logging.getLogger('trips')
 
-@leyouv_trips.route('/trip/index',methods=['GET'])
+@leyouv_trips.route('/trips/index',methods=['GET'])
 @api_wrap
 def get_trip_list():
     try:
@@ -17,7 +17,7 @@ def get_trip_list():
         logger.error('get_trip_list error:>> %s', ex)
         return APIResult(201, 'error')
 
-@leyouv_trips.route('/trips/<tripid>',methods=['GET'])
+@leyouv_trips.route('/trip/<tripid>',methods=['GET'])
 @api_wrap
 def get_trip_by_id(tripid):
     try:
