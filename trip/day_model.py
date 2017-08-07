@@ -8,5 +8,5 @@ class Days(DynamicDocument):
         'collection': 'days'
     }
     day=IntField()
-    data_add=DateTimeField()
     trip=ObjectIdField()
+    date_add=DateTimeField()

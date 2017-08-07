@@ -30,7 +30,6 @@ class Trip_Service:
         arr=[]
         days_info=Days.objects(trip=tripsid)
         for i in days_info:
-            print(i.id)
             day={}
             waypoints=cls._get_waypoits_by_days_id(i.id)
             day.update({"day":i.day,"date":i.date_add,"waypoints":waypoints})
@@ -45,9 +44,10 @@ class Trip_Service:
             arr.append(i.waypoint_to_dict)
         return  arr
 
-    def _get_waypoits_by_days_id(self,daysid):
+    def _get_waypoits_by_days_id(daysid): 
+        print(daysid)
         result=[]
-        waypoints=Waypoint.objects(day=daysid).order_by('id')
+        waypoints=Waypoint.objects(days=daysid).order_by('id')
         for i in waypoints:
             result.append(i.waypoint_to_dict)
         return  result

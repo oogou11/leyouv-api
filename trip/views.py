@@ -27,7 +27,7 @@ def get_trip_by_id(tripid):
         logger.error('get_trip_by_id error:>> %s', ex)
         return APIResult(201, 'error')
 
-@leyouv_trips.route('/trips/<tripid>/waypoints',methods=['GET'])
+@leyouv_trips.route('/trip/<tripid>/waypoints',methods=['GET'])
 @api_wrap
 def get_waypoint_list(tripid):
     try:
