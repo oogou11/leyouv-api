@@ -1,3 +1,4 @@
+import datetime
 import  json
 from .trip_model import Trip
 from .day_model import Days
@@ -32,7 +33,7 @@ class Trip_Service:
         for i in days_info:
             day={}
             waypoints=cls._get_waypoits_by_days_id(i.id)
-            day.update({"day":i.day,"date":i.date_add,"waypoints":waypoints})
+            day.update({"day":i.day,"date":i.date_add.strftime('%Y-%m-%d'),"waypoints":waypoints})
             arr.append(day)
         return arr
 
