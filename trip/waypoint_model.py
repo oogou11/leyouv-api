@@ -49,7 +49,7 @@ class Waypoint(DynamicDocument):
                 data.update({i:comments})
             elif isinstance(self[i],str):
                 data.update({i:str(self[i])})
-            elif isinstance(self[i],Day):
+            elif isinstance(self[i],Days):
                 data['day']=self[i].day
             else:
                 data.update({i: self[i]})
