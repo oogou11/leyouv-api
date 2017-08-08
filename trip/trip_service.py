@@ -10,14 +10,15 @@ class Trip_Service:
         pass
 
     @classmethod
-    def get_trip_list(cls):
-        arr=[]
-        offset=0,
+    def get_trip_list(cls,next_start):
+        arr=[] 
         num=5
-        data=Trip.objects.order_by('-id').skip(0).limit(5)
+        data=Trip.objects.order_by('-id').skip(next_start).limit(5)
+        if len(data)==0:
+            return {"data":arr,"next_start":next_start}
         for i in data:
             arr.append(i.trip_to_dict)
-        result={"data":arr}
+        result={"data":arr,"next_start":next_start+num}
         return result
 
     @classmethod
@@ -44,6 +45,12 @@ class Trip_Service:
         for i in data:
             arr.append(i.waypoint_to_dict)
         return  arr
+    
+    @classmethod
+    def get_detail_waypoint(cls,waypointId): 
+        waypoint_detail=Waypoint.objects(id=waypointId).first()
+        reuslt=waypoint_detail.waypoint_to_dict
+        return reuslt
 
     def _get_waypoits_by_days_id(daysid): 
         print(daysid)
