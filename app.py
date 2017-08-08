@@ -1,14 +1,16 @@
-import json
 import flask
-import conf
 
 from trip.views import leyouv_trips
+from user.views import leyouv_users
 
 
 app = flask.Flask('api')
 
 #trip
 prefix = "/v1"
+
+app.register_blueprint(leyouv_users,url_prefix=prefix)
+
 app.register_blueprint(leyouv_trips,url_prefix=prefix)
 
 
