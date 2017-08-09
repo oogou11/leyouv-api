@@ -52,6 +52,14 @@ class Trip_Service:
         reuslt=waypoint_detail.waypoint_to_dict
         return reuslt
 
+    @classmethod
+    def get_trips_by_userid(cls,userid):
+        arr=[]
+        data=Trip.objects(user=userid)
+        for i in data:
+            arr.append(i.trip_to_dict)
+        return arr
+
     def _get_waypoits_by_days_id(daysid): 
         print(daysid)
         result=[]

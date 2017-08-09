@@ -70,7 +70,7 @@ class Waypoint(DynamicDocument):
                 user = {
                     "id": str(user_info.id),
                     "name": (user_info.name),
-                    "avatar_1": user_info.avatar_1
+                    "avatar_l": user_info.avatar_l
                 }
                 data['user'] = user
             elif isinstance(model[i], str):

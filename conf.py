@@ -5,5 +5,5 @@ leconfig.loader.load_to_dict(globals(),
 
 
 import mongoengine
-for alias, attrs in MONGO.items():
+for alias, attrs in MONGO.items(): 
     mongoengine.register_connection(alias, **attrs)

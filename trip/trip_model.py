@@ -32,7 +32,7 @@ class Trip(DynamicDocument):
                 user={
                     "id":str(self[i].id),
                     "name":(self[i].name),
-                    "avatar_1":self[i].avatar_1
+                    "avatar_l":self[i].avatar_l
                 }
                 data['user']=user
             elif isinstance(self[i],datetime.datetime):

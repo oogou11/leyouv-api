@@ -1,8 +1,8 @@
+import logging
 from flask import request
 from flask.blueprints import Blueprint
 from util.api import APIResult, api_wrap
-from .trip_service import Trip_Service
-import logging
+from .trip_service import Trip_Service 
 
 leyouv_trips = Blueprint("leyouv_trips", __name__)
 logger = logging.getLogger('trips')

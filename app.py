@@ -1,3 +1,4 @@
+import conf
 import flask
 
 from trip.views import leyouv_trips

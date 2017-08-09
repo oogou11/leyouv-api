@@ -9,4 +9,4 @@ class Days(DynamicDocument):
     }
     day=IntField()
     trip=ObjectIdField()
-    date_add=DateTimeField() 
+    date_add=DateTimeField()
