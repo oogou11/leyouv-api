@@ -10,9 +10,8 @@ app = flask.Flask('api')
 #trip
 prefix = "/v1"
 
-app.register_blueprint(leyouv_users,url_prefix=prefix)
-
 app.register_blueprint(leyouv_trips,url_prefix=prefix)
+app.register_blueprint(leyouv_users,url_prefix=prefix+"/users")
 
 
 if __name__ == '__main__':

@@ -4,6 +4,14 @@ from mongoengine import  *
 
 DB_NAME = "leyouv"
 
+class WX_User:
+    nickName=StringField()
+    avatarUrl=StringField()
+    #性别    0：未知、1：男、2：女
+    gender=IntField()
+    province=StringField()
+
+
 class User(DynamicDocument):
     meta = {
         'db_alias': DB_NAME,
