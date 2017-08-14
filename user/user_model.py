@@ -11,13 +11,12 @@ class WX_User:
     gender=IntField()
     province=StringField()
 
-
 class User(DynamicDocument):
     meta = {
         'db_alias': DB_NAME,
         'collection': 'user'
     }
-
+    openid=StringField()
     name=StringField()
     birthday=DateTimeField()
     gender=IntField()
