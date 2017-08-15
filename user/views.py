@@ -20,14 +20,13 @@ def get_user_id(userid):
         logger.error('users get_user_id error>> %s',ex)
         return APIResult(211,'error')
 
-@leyouv_users.route('/login',methods=['POST'])
-@api_wrap
-def init_user_info():
-     json_data=json.loads(request.data)
-
 @leyouv_users.route('/pauli',methods=['POST'])
 @api_wrap
 def init_session_key():
-    content = json.loads(request.data.decode("utf-8"), object_hook=JsonObject)
-    session_key=User_Service.get_user_session_key(content)
-    return APIResult(0)
+    try:
+        content = json.loads(request.data.decode("utf-8"), object_hook=JsonObject)
+        session_key=User_Service.get_user_session_key(content)
+        return APIResult(0,session_key)
+    except Exception as ex:
+        logging.error('init_session_key error>>%s' % ex)
+        return APIResult(201,'error')

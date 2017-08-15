@@ -17,6 +17,7 @@ class User(DynamicDocument):
         'collection': 'user'
     }
     openid=StringField()
+    sessionid=StringField()
     name=StringField()
     birthday=DateTimeField()
     gender=IntField()
@@ -24,7 +25,7 @@ class User(DynamicDocument):
     followers_count=IntField()
     followings_count=IntField()
     avatar_l=StringField()
-    date_added=DateTimeField()
+    date_added=DateTimeField(default=datetime.datetime.now())
 
     @property
     def user_to_dict(self):
