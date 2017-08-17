@@ -30,3 +30,29 @@ def init_session_key():
     except Exception as ex:
         logging.error('init_session_key error>>%s' % ex)
         return APIResult(201,'error')
+
+@leyouv_users.route('/certify/<waypointid>/<sessionid>',methods=['GET'])
+@api_wrap
+def certify_user_sessionid(waypointid,sessionid):
+    try:
+        data=User_Service.get_user_by_sessionid(waypointid,sessionid)
+        return  APIResult(0,data)
+
+    except Exception as ex:
+        logger.error("certify_user_sessionid error=>> %s" % ex)
+        return  APIResult(201,'error')
+
+@leyouv_users.route('/addcommnet',methods=['POST'])
+@api_wrap
+def add_user_commnet():
+    try:
+        content = json.loads(request.data.decode("utf-8"), object_hook=JsonObject)
+        print(request.data)
+        result=User_Service.add_user_comment(content)
+        if result:
+            return APIResult(0)
+        else:
+            return APIResult(-1,'error')
+    except Exception as ex:
+        logger.error("add_user_commnet error=>> %s" % ex)
+        return  APIResult(201,'error');

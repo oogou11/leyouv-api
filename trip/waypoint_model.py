@@ -11,7 +11,7 @@ DB_NAME = "leyouv"
 
 
 class Recommenders(EmbeddedDocument):
-    date_added = DateTimeField()
+    date_added = DateTimeField(default=datetime.datetime.now())
     user = ObjectIdField()
 
 
@@ -30,6 +30,7 @@ class Waypoint(DynamicDocument):
     customer_id = IntField
     photo = StringField()
     fee = StringField()
+    photo_webtrip=StringField()
     text = StringField()
     hotel = StringField()
     comment_count = IntField()

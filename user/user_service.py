@@ -19,27 +19,6 @@ class User_Service:
         return user
 
     @classmethod
-    def insert_new_user(cls,openid,userinfo):
-        user=cls.get_user_by_openid(openid).first()
-        if user:
-            return user.sessionid
-        else:
-            h=hashlib.new('ripemd160')
-            h.update(openid.encode('utf-8'))
-            sessionid=h.hexdigest()
-            new_user=User()
-            new_user.openid=openid
-            new_user.sessionid=sessionid
-            new_user.avatar_l=str(userinfo.avatarUrl)
-            new_user.country=str(userinfo.country)
-            new_user.province=str(userinfo.province)
-            new_user.city=str(userinfo.city)
-            new_user.gender=userinfo.gender
-            new_user.name=str(userinfo.nickName)
-            new_user.save()
-            return sessionid
-
-    @classmethod
     def get_user_by_id(cls,userid): 
         data=User.objects(id=userid).first() 
         user=data.user_to_dict
@@ -58,3 +37,45 @@ class User_Service:
         user_info=pc.decrypt(param.encryptedData, param.iv)
         sessionid=cls.insert_new_user(str(user_info['openId']),param.userInfo)
         return sessionid
+
+    @classmethod
+    def get_user_by_sessionid(cls,waypointid,sessionid):
+        user=User.objects(sessionid=sessionid).first()
+        if user:
+            waypoint=Trip_Service.insert_waypoints_replise(waypointid,user)
+            return waypoint
+        else:
+            return None
+
+    @classmethod
+    def insert_new_user(cls, openid, userinfo):
+        user = cls.get_user_by_openid(openid).first()
+        if user:
+            return user.sessionid
+        else:
+            h = hashlib.new('ripemd160')
+            h.update(openid.encode('utf-8'))
+            sessionid = h.hexdigest()
+            new_user = User()
+            new_user.openid = openid
+            new_user.sessionid = sessionid
+            new_user.avatar_l = str(userinfo.avatarUrl)
+            new_user.country = str(userinfo.country)
+            new_user.province = str(userinfo.province)
+            new_user.city = str(userinfo.city)
+            new_user.gender = userinfo.gender
+            new_user.name = str(userinfo.nickName)
+            new_user.save()
+            return sessionid
+
+    @classmethod
+    def add_user_comment(cls,data):
+        user = User.objects(sessionid=data.sessionid).first()
+        if user:
+            waypoint=Trip_Service.add_user_commnet(data,user)
+            if waypoint>0:
+                return True
+            else:
+                return False
+        else:
+            return False

@@ -2,7 +2,7 @@ import datetime
 import  json
 from .trip_model import Trip
 from .day_model import Days
-from .waypoint_model import Waypoint
+from .waypoint_model import Waypoint,Recommenders,Commnets
 
 class Trip_Service:
 
@@ -60,10 +60,24 @@ class Trip_Service:
             arr.append(i.trip_to_dict)
         return arr
 
-    def _get_waypoits_by_days_id(daysid): 
-        print(daysid)
+    @classmethod
+    def insert_waypoints_replise(cls,waypointid,user):
+        try:
+            new_replies=Recommenders(date_added=datetime.datetime.now(),user=user.id)
+            waypon=Waypoint.objects(id=waypointid).update_one(push__recommenders=new_replies,inc__recommender_count=1)
+            return  waypon
+        except Exception as ex:
+            return  None
+
+    @classmethod
+    def add_user_commnet(cls,data,user):
+        new_commnet=Commnets(date_added=datetime.datetime.now(),user=user.id,comment=data.text)
+        waypon=Waypoint.objects(id=data.waypointid).update_one(push__comments=new_commnet,inc__comment_count=1)
+        return waypon
+
+    def _get_waypoits_by_days_id(daysid):
         result=[]
         waypoints=Waypoint.objects(days=daysid).order_by('id')
         for i in waypoints:
             result.append(i.waypoint_to_dict)
-        return  result
+        return result
